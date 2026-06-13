@@ -1,0 +1,6 @@
+UPDATE dbo.CDC_Control_Table_TB
+SET 
+    LastProcessedLSN = CONVERT(BINARY(10), '<ToLSNHex>', 1),
+    LastProcessedTime = SYSUTCDATETIME(),
+    IsInitialLoadDone = 1
+WHERE TableName = 'dbo_Customer_Source_TB';
