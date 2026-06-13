@@ -1,0 +1,25 @@
+DECLARE @from_lsn BINARY(10);
+DECLARE @to_lsn   BINARY(10);
+DECLARE @min_lsn  BINARY(10);
+
+SELECT @from_lsn = LastProcessedLSN
+FROM dbo.CDC_Control_Table_TB
+WHERE TableName = 'dbo_Customer_Source_TB'
+  AND IsActive = 1;
+
+SET @min_lsn = sys.fn_cdc_get_min_lsn('dbo_Customer_Source_TB');
+SET @to_lsn  = sys.fn_cdc_get_max_lsn();
+
+IF @from_lsn IS NULL
+BEGIN
+    SET @from_lsn = @min_lsn;
+END;
+
+IF @from_lsn < @min_lsn
+BEGIN
+    SET @from_lsn = @min_lsn;
+END;
+
+SELECT
+    CONVERT(VARCHAR(100), @from_lsn, 1) AS FromLSNHex,
+    CONVERT(VARCHAR(100), @to_lsn, 1)   AS ToLSNHex;
