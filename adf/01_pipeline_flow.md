@@ -1,4 +1,6 @@
-# ADF Pipeline Flow
+## ⚙️ ADF Pipeline Flow
+
+<img src="https://github.com/Simha-manoranjan-reddy/cdc-data-pipeline/blob/main/adf/Designer%20(3).png" alt="Description of image" width="900">
 
 ## Overview
 
