@@ -1,1 +1,50 @@
 
+DECLARE @from_lsn BINARY(10) = CONVERT(BINARY(10), '<FromLSNHex>', 1);
+DECLARE @to_lsn BINARY(10) = CONVERT(BINARY(10), '<ToLSNHex>', 1);
+
+SELECT
+    CASE __$operation
+        WHEN 1 THEN 'DELETE'
+        WHEN 2 THEN 'INSERT'
+        WHEN 4 THEN 'UPDATE'
+    END AS OperationType,
+
+    CustomerID,
+    CustomerName,
+    Email,
+    PhoneNumber,
+    City,
+    State,
+    Country,
+    ZipCode,
+    Age,
+    Gender,
+    CustomerType,
+    AnnualIncome,
+    AccountBalance,
+    CreditScore,
+    Status,
+    JoinDate,
+    LastLoginDate,
+    LastTransactionDate,
+    CreatedDate,
+    CreatedBy,
+    UpdatedAt,
+    UpdatedBy,
+
+    sys.fn_cdc_map_lsn_to_time(__$start_lsn) AS ChangeTime,
+    CONVERT(VARCHAR(100), __$start_lsn, 1) AS StartLSN,
+    CONVERT(VARCHAR(100), __$seqval, 1) AS SeqVal,
+    __$operation AS OperationCode,
+    CONVERT(VARCHAR(100), @from_lsn, 1) AS BatchFromLSN,
+    CONVERT(VARCHAR(100), @to_lsn, 1) AS BatchToLSN,
+    SYSUTCDATETIME() AS IngestionTime
+
+FROM cdc.fn_cdc_get_all_changes_dbo_Customer_Source_TB
+(
+    @from_lsn,
+    @to_lsn,
+    'all'
+)
+WHERE __$operation IN (1, 2, 4)
+ORDER BY __$start_lsn, __$seqval;
