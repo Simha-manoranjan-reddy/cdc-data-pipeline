@@ -14,7 +14,7 @@ Rather than full table loads, the pipeline uses SQL Server's native CDC mechanis
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](./Architecture/Designer%20(2).png)
+![Architecture Diagram](https://github.com/Simha-manoranjan-reddy/cdc-data-pipeline/blob/main/Architecure/Designer%20(2).png)
 
 ---
 
