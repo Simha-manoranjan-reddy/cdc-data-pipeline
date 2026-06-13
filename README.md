@@ -17,7 +17,7 @@ The pipeline ingests data from Azure SQL, processes incremental changes using CD
 
 ## ⚙️ ADF Pipeline Flow
 
-<img src="https://github.com/Simha-manoranjan-reddy/cdc-data-pipeline/blob/main/Architecure/Designer%20(2).png" alt="Description of image" width="900">
+<img src="https://github.com/Simha-manoranjan-reddy/cdc-data-pipeline/blob/main/adf/Designer%20(3).png" alt="Description of image" width="900">
 
 ---
 
